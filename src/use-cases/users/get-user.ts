@@ -1,9 +1,12 @@
 import { UserRepository } from "../../repositories/user-repository";
-import { ValidationError } from "apollo-server";
+import { AuthenticationError, ValidationError } from "apollo-server";
 
 const userRepository = new UserRepository();
-export const getUser = async (_, { id }) => {
-  const user = await userRepository.findById(id);
+export const getUser = async (_, __, { userId }) => {
+  if (!userId) {
+    throw new AuthenticationError("Should be logged");
+  }
+  const user = await userRepository.findById(userId);
   if (!user) {
     throw new ValidationError("User doesn't exist");
   }
