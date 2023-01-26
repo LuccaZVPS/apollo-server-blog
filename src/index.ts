@@ -11,9 +11,6 @@ mongoose
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: {
-    userModel: mongoose.model("graphqlusers", userSchema),
-  },
 });
 server.listen(8000).then(() => {
   console.log("Apollo iniciado");
