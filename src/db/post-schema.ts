@@ -15,4 +15,4 @@ export const postSchema = new mongoose.Schema(
   },
   { collection: "graphposts", timestamps: true }
 );
-export const postModel = mongoose.model("graphqlusers", postSchema);
+export const postModel = mongoose.model("graphqlposts", postSchema);
