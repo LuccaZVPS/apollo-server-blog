@@ -8,8 +8,9 @@ export const userTypeDefs = gql`
     createUser(data: CreateUserDTO!): User!
   }
   type User {
-    name: String
-    email: String
+    name: String!
+    email: String!
+    _id: String
   }
   input CreateUserDTO {
     name: String!

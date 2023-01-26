@@ -7,5 +7,5 @@ export const getUser = async (_, { id }) => {
   if (!user) {
     throw new ValidationError("User doesn't exist");
   }
-  return { email: user.email, name: user.name };
+  return { email: user.email, name: user.name, _id: user._id };
 };

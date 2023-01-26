@@ -17,6 +17,7 @@ export class UserRepository {
     const user = await userModel.findOne({
       _id: new mongoose.Types.ObjectId(id),
     });
+    console.log(user);
     if (user) {
       return user;
     }
