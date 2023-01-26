@@ -1,7 +1,7 @@
 import { gql } from "apollo-server";
 
 export const postsType = gql`
-  extend type Query {
+  extend type Mutation {
     createPost(data: createPostDTO!): Post!
     updatePost(data: createPostDTO!, id: String!): Post!
   }
