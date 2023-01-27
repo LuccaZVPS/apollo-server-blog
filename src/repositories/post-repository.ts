@@ -1,6 +1,6 @@
 import { CreatePostDTO } from "../use-cases/posts/DTOs/create-post";
 import { postModel } from "../db/post-schema";
-import mongoose, { Unpacked } from "mongoose";
+import mongoose, { isValidObjectId, Unpacked } from "mongoose";
 import { Post } from "../domain/post";
 export class PostRepository {
   async createPost(data: CreatePostDTO, userId) {
@@ -20,13 +20,21 @@ export class PostRepository {
     );
   }
   async findById(id: string): Promise<Post | undefined> {
+    const isValidId = isValidObjectId(id);
+    if (!isValidId) {
+      return;
+    }
     const post = await postModel.findOne({
       _id: new mongoose.Types.ObjectId(id),
     });
 
-    console.log(post);
     if (post) {
       return post as unknown as Post;
     }
+  }
+  async delete(id: string) {
+    await postModel.deleteOne({
+      _id: new mongoose.Types.ObjectId(id),
+    });
   }
 }

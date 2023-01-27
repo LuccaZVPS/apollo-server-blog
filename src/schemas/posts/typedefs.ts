@@ -4,6 +4,7 @@ export const postsType = gql`
   extend type Mutation {
     createPost(data: createPostDTO!): Post!
     updatePost(data: createPostDTO!, id: String!): Post!
+    deletePost(id: String!): String
   }
 
   type Post {
