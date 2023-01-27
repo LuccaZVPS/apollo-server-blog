@@ -3,6 +3,7 @@ import { gql } from "apollo-server";
 export const userTypeDefs = gql`
   extend type Query {
     user: User!
+    logout: Logout
   }
   extend type Mutation {
     createUser(data: CreateUserDTO!): User!
@@ -25,5 +26,8 @@ export const userTypeDefs = gql`
   input LoginDTO {
     email: String
     password: String
+  }
+  type Logout {
+    logout: Boolean
   }
 `;
