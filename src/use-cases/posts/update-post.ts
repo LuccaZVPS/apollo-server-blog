@@ -1,5 +1,5 @@
 import { AuthenticationError, UserInputError } from "apollo-server";
-import { validate } from "class-validator";
+import { validate, ValidationError } from "class-validator";
 import { CreatePostDTO } from "./DTOs/create-post";
 import { PostRepository } from "../../repositories/post-repository";
 const postRepository = new PostRepository();
@@ -21,8 +21,14 @@ export const updatePost = async (_, { data, id }, { userId }) => {
         .toString()
     );
   }
-
-  const user = await postRepository.update(postInfoDTO, id);
-  const { createdAt, body, title, categories, _id } = user;
+  const postExist = await postRepository.findById(id);
+  if (!postExist) {
+    throw new UserInputError("Post does not exist");
+  }
+  if (postExist.user != userId) {
+    throw new AuthenticationError("Cannot update this post");
+  }
+  const post = await postRepository.update(postInfoDTO, id);
+  const { createdAt, body, title, categories, _id } = post;
   return { createdAt, body, title, categories, _id };
 };
