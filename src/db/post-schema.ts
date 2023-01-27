@@ -5,14 +5,12 @@ export const postSchema = new mongoose.Schema(
     title: { type: String, required: true },
     body: { type: String, required: true },
     categories: [{ type: String, required: true }],
-    user: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "graphusers",
-      },
-    ],
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "graphqlusers",
+    },
   },
-  { collection: "graphposts", timestamps: true }
+  { collection: "graphqlposts", timestamps: true }
 );
 export const postModel = mongoose.model("graphqlposts", postSchema);
