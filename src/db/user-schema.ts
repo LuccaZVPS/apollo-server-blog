@@ -6,6 +6,6 @@ export const userSchema = new mongoose.Schema(
     email: { type: String, required: true },
     password: { type: String, required: true },
   },
-  { collection: "graphusers" }
+  { collection: "graphqlusers" }
 );
 export const userModel = mongoose.model("graphqlusers", userSchema);
