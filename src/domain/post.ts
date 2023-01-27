@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { User } from "./user";
 
 export interface Post extends Document {
@@ -8,4 +8,5 @@ export interface Post extends Document {
   user: User;
   title: string;
   createdAt: Date;
+  updatedAt: Date;
 }
