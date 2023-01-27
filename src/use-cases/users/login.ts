@@ -4,9 +4,10 @@ import { validate } from "class-validator";
 import { LoginDTO } from "./DTOs/login";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { context } from "../../context";
 const userRepository = new UserRepository();
 
-export const login = async (_, { data }) => {
+export const login = async (_, { data }, { express }: context) => {
   const userInfo = new LoginDTO();
   userInfo.email = data?.email;
   userInfo.password = data?.password;
@@ -36,6 +37,13 @@ export const login = async (_, { data }) => {
     process.env.SECRET,
     { expiresIn: "7d" }
   );
+  express.res.cookie("jwt", token, {
+    httpOnly: true,
+    secure: true,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    sameSite: "none",
+    path: "/",
+  });
 
   return { token: token };
 };
