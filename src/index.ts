@@ -4,10 +4,12 @@ import { resolvers, typeDefs } from "./rootTypesDefs";
 import dotenv from "dotenv";
 import { context } from "./context";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+
 dotenv.config();
 mongoose
   .connect(process.env.DATABASE_URL)
   .then(() => console.log("Connected!"));
+
 const server = new ApolloServer({
   cors: {
     origin: "*",
